@@ -1,164 +1,40 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
-    <title>To-do list</title>
-    <link rel="stylesheet" href="">
-    <style>
-        
-        body{
-    margin: 0;
-    display: flex;
-    justify-content: center;
-    background-color:green;
-}
-
-.form{
-    position: absolute;
-    top: 20%;
-    box-shadow: 0 4px 8px rgba(0,0,0,.3);
-    width: 400px;
-    background-color:skyblue;
-    border-radius: 15px;
-}
-
-.input{
-    width: 100%;
-    box-sizing: border-box;
-    padding: 20px;
-    border-radius: 10px 10px 0 0;
-    border: none;
-    font-size: 20px;
-    font-family: verdana;
-}
-
-.input::placeholder{
-    color: rgb(37, 148, 70);
-}
-
-.list{
-    padding: 0;
-    margin: 0;
-}
-
-.list li{
-    list-style-type: none;
-    padding: 20px;
-    font-family: cursive;
-    border-top: dotted;
-    border-color: darkgray;
-    position: relative;
-}
-
-.list li .fa-trash{
-    color: red;
-    position: absolute;
-    right: 20px;
-    top: 50%;
-    transform: translateY(-50%);
-    cursor: pointer;
-}
-.list li .fa-check-square{
-    color: green;
-    position: absolute;
-    right: 40px;
-    top: 50%;
-    transform: translateY(-50%);
-    cursor: pointer;
-}
-
-.list li.checked {
-    color: rgb(205, 91, 91);
-    text-decoration: line-through;
-}
-
-.list li.checked .fa-check-square{
-    color: rgb(205, 91, 91);
-}
-            
-    </style>
-
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
+    <title>Weather App</title>
+    <link rel="stylesheet" href="./style.css">
+    <script src="./script.js" defer></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap" rel="stylesheet">
 </head>
 <body>
-    <form action="" class="form">
-        <input type="text" name="" id="" class="input" placeholder="Enter your task" autocomplete="off"> 
-
-<ul class="list">
+   
+    <div class="card">
+        <div class="text1">Simple Weather App</div>
+        <div class="search">
+            <input type="text" class ="search-bar" placeholder="Search for a city">
+            <a href="#search"><button>
+                <i class="fa-solid fa-magnifying-glass"></i>
+            </button></a>
+        </div>
+        <div class="weather loading">
+            <h2 class="city">
+                Weather in Patna
+            </h2>
+            <h1 class="temp">51°C</h1>
+            <!-- <img src="" alt="" class="icon"> -->
+            <div class="flex">
+                <img src="https://openweathermap.org/img/wn/04n.png" alt="" class="icon" />
+            <div class="description">Cloudy</div>
+        </div>
+            <div class="humidity">Humadity 60%</div>
+            <div class="wind">Wind speed 5.9 km/h</div>
+        </div>
+    </div>
     
-</ul>
-    </form>
-
-    <script>
-        const formEl = document.querySelector(".form");
-
-const inputEl = document.querySelector(".input");
-
-const ulEl = document.querySelector(".list");
-
-let list = JSON.parse(localStorage.getItem("list"));
-if (list) {
-  list.forEach((task) => {
-    toDoList(task);
-  });
-}
-
-formEl.addEventListener("submit", (event) => {
-  event.preventDefault();
-  toDoList();
-});
-
-function toDoList(task) {
-  let newTask = inputEl.value;
-  if (task) {
-    newTask = task.name;
-  }
-
-  const liEl = document.createElement("li");
-  if (task && task.checked) {
-    liEl.classList.add("checked");
-  }
-  liEl.innerText = newTask;
-  ulEl.appendChild(liEl);
-  inputEl.value = "";
-
-  const checkBtnEl = document.createElement("div");
-  checkBtnEl.innerHTML = `
-  <i class="fas fa-check-square">
-  `;
-  liEl.appendChild(checkBtnEl);
-  const trashBtnEl = document.createElement("div");
-  trashBtnEl.innerHTML = `
-  <i class="fas fa-trash"></i>
-  `;
-  liEl.appendChild(trashBtnEl);
-
-  checkBtnEl.addEventListener("click", () => {
-    liEl.classList.toggle("checked");
-    updateLocalStorage();
-  });
-
-  trashBtnEl.addEventListener("click", () => {
-    liEl.remove();
-    updateLocalStorage();
-  });
-  updateLocalStorage();
-}
-
-function updateLocalStorage() {
-  const liEls = document.querySelectorAll("li");
-  list = [];
-  liEls.forEach((liEl) => {
-    list.push({
-      name: liEl.innerText,
-      checked: liEl.classList.contains("checked"),
-    });
-  });
-  localStorage.setItem("list", JSON.stringify(list));
-}   
-    </script>
 </body>
 </html>
